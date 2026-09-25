@@ -4,21 +4,30 @@
 
 :root {
   --sidebar-ancho: 220px;
-  --fondo: ##F2CECE;
-  --fondo-carta: ##F24194;
-  --acento: ##EE05F2;
-  --texto: #0D0D0D;
-  --texto-suave: ##F20505;
+  --fondo: #fad7dc;
+  --fondo-carta: #fad7dc;
+  --acento: #ff65af;
+  --texto: #fff8fc;
+  --texto-suave: #020202;
+  
+  --color1: #ff65af;
+  --color2: #fad7dc;
+  --color3: #ff88cf;
+  --color4: #020202;
+  --color5: #fff8fc;
+  --color6: #f18bb0;
+
 }
+
+/* ---------- Body ---------- */
 
 body {
   margin: 0;
   background: var(--fondo);
   background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 18px 18px;
-  color: var(--texto);
+  color: var(--color4);
   font-family: 'Segoe UI', Tahoma, sans-serif;
-  scroll-behavior: smooth;
 }
 
 /* ---------- Sidebar ---------- */
@@ -28,8 +37,8 @@ body {
   left: 0;
   width: var(--sidebar-ancho);
   height: 100vh;
-  background: #F2CECE;
-  border-right: 1px solid #F24194;
+  background: linear-gradient(180deg, var(--color5) 0%, var(--color2) 50%, var(--color6) 100%);
+  border-right: 1px solid var(--color6);
   display: flex;
   flex-direction: column;
   padding: 24px 0;
@@ -42,13 +51,12 @@ body {
   align-items: center;
   gap: 8px;
   padding: 0 16px 24px;
-  border-bottom: 1px solid #F24194;
-  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color6);
 }
 
 .logo-icono {
   width: 128px;
-  height: 96px;
+  height: 128px;
 }
 
 .menu {
@@ -62,8 +70,7 @@ body {
 .enlace-menu {
   display: block;
   padding: 12px 24px;
-  color: #0D0D0D;
-  font-weight: 600;
+  color: var(--color4);
   text-decoration: none;
   border-left: 3px solid transparent;
   font-size: 0.95rem;
@@ -71,57 +78,54 @@ body {
 }
 
 .enlace-menu:hover {
-  background: #F24194;
-  color: #fff;
+  background: var(--color6);
+  color: var(--texto);
 }
 
 .enlace-menu.activo {
-  color: #fff;
-  border-left-color: #fff;
-  background: #F24194;
+  color: var(--texto);
+  border-left-color: var(--color6);
+  background: var(--color6);
 }
 
-/* ---------- Contenido ---------- */
+/* ---------- Contenido / páginas ---------- */
 .contenido {
   margin-left: var(--sidebar-ancho);
+  max-height: 100vh;
+}
+
+.pagina {
+  display: none;
   padding: 40px 30px 80px;
-  background: #FFEBE8;
-  height: 100vh;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 30px;
+.pagina.activa {
+  display: block;
 }
 
-header h1 {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 2.4rem;
-  letter-spacing: 0.5px;
-  margin: 0 0 8px;
-  color: #F24194;
+.logo-texto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
 }
 
-header p {
-  margin: 0;
-  font-size: 0.95rem;
+.logo-texto-img {
+  max-width: 100%;
+  height: 128px;
 }
 
 /* ---------- Mapa ---------- */
-.seccion-mapa {
-  margin-bottom: 60px;
-}
-
 .mapa-scroll {
-  overflow-x: auto;
-  padding-bottom: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .mapa {
   position: relative;
-  width: 940px;
-  height: 540px;
-  margin: 0 auto;
+  transform-origin: center top;
+  flex-shrink: 0;
 }
 
 .flechas {
@@ -134,57 +138,40 @@ header p {
 }
 
 .flechas path {
-  stroke: #F24194;
-  stroke-width: 2;
+  stroke: var(--color1);
+  stroke-width: 1.5;
   fill: none;
 }
 
-
-
-
 .tema {
   position: absolute;
-  width: 180px;
-  height: 70px;
-  background: #F24194;
-  border: 2px solid #F2CECE;
+  width: 200px;
+  min-height: 90px;
+  background: var(--color5);
+  border: 2px solid var(--color1);
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8px;
-  font-size: 0.95rem;
+  padding: 8px 10px;
+  font-size: 1.15rem;
   font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .tema:hover,
 .tema:focus-visible {
-  background: #F24194;
+  background: var(--color6);
+  color: var(--color5);
   transform: translateY(-3px);
 }
 
 .tema:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--color1);
   outline-offset: 3px;
-}
-
-/* ---------- Acerca de ---------- */
-.acerca {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.acerca h2 {
-  font-family: Georgia, 'Times New Roman', serif;
-  color: #F24194;
-}
-
-.acerca p {
-  color: #0D0D0D;
-  line-height: 1.6;
 }
 
 /* ---------- Popup ---------- */
@@ -204,8 +191,8 @@ header p {
 }
 
 .popup {
-  background: #F24194;
-  color: #fff;
+  background: var(--color6);
+  color: var(--color5);
   border-radius: 8px;
   max-width: 560px;
   width: 100%;
@@ -224,13 +211,13 @@ header p {
   font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
-  color: #fff;
+  color: var(--color5);
 }
 
 .popup h2 {
   margin-top: 0;
   font-family: Georgia, 'Times New Roman', serif;
-  color: #fff;
+  color: var(--color5);
 }
 
 .popup-imagen {
@@ -264,6 +251,7 @@ header p {
     flex-direction: row;
     align-items: center;
     padding: 12px;
+    flex-wrap: wrap;
   }
 
   .logo {
@@ -284,19 +272,24 @@ header p {
 
   .menu {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .enlace-menu {
     border-left: none;
     border-bottom: 3px solid transparent;
+    padding: 10px 14px;
   }
 
   .enlace-menu.activo {
-    border-bottom-color: #F24194;
+    border-bottom-color: var(--color1);
   }
 
   .contenido {
     margin-left: 0;
+  }
+
+  .pagina {
     padding: 30px 16px 60px;
   }
 }
