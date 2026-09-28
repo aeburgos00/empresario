@@ -3,7 +3,8 @@
 }
 
 :root {
-  --sidebar-ancho: 220px;
+  --sidebar-ancho: 200px;
+  --width-img: 64px;
   --fondo: #fad7dc;
   --fondo-carta: #fad7dc;
   --acento: #ff65af;
@@ -55,8 +56,8 @@ body {
 }
 
 .logo-icono {
-  width: 128px;
-  height: 128px;
+  width: var(--width-img);
+  height: var(--width-img);
 }
 
 .menu {
@@ -73,7 +74,8 @@ body {
   color: var(--color4);
   text-decoration: none;
   border-left: 3px solid transparent;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.8rem;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
@@ -96,7 +98,7 @@ body {
 
 .pagina {
   display: none;
-  padding: 40px 30px 80px;
+  /* padding: 40px 30px 80px; */
 }
 
 .pagina.activa {
@@ -112,7 +114,7 @@ body {
 
 .logo-texto-img {
   max-width: 100%;
-  height: 128px;
+  height: var(--width-img);
 }
 
 /* ---------- Mapa ---------- */
@@ -145,8 +147,8 @@ body {
 
 .tema {
   position: absolute;
-  width: 200px;
-  min-height: 90px;
+  width: 190px;
+  min-height: 70px;
   background: var(--color5);
   border: 2px solid var(--color1);
   border-radius: 4px;
@@ -240,6 +242,106 @@ body {
   aspect-ratio: 16 / 9;
   border: none;
   border-radius: 6px;
+}
+
+.popup.nosotros {
+  color: var(--color5);
+  border-radius: 8px;
+  width: 100%;
+  height: 1536px;
+  max-height: 85vh;
+  position: relative;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.popup.nosotros .popup-imagen {
+  display: none;
+}
+
+.popup.nosotros .cerrar {
+  color: #000;
+  z-index: 2;
+}
+
+/* ---------- Reflexion ---------- */
+.contenido-reflexion{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+}
+
+.texto-reflexion-container{
+  margin-bottom: 24px;
+}
+
+.texto-reflexion{
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.imagen-reflexion-container {
+  display: flex;
+  justify-content: center;
+}
+
+.imagen-reflexion {
+  max-width: 60%;
+  height: auto;
+  border-radius: 48px;
+}
+
+/* ---------- Noticia Jurídica ---------- */
+.contenido-noticia{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+}
+
+/* ---------- Nosotros ---------- */
+.contenido-nosotros{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+}
+
+.imagenes-nosotros {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+  padding: 0 48px;
+}
+
+.imagen-nosotros-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+
+.nombre-nosotros {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 8px;
+  font-size: 1.2rem;
+}
+
+.imagen-nosotros {
+  max-width: 100%;
+  height: auto;
+  border-radius: 100%;
+  cursor: pointer;
 }
 
 /* ---------- Responsive ---------- */

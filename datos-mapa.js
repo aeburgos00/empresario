@@ -1,3 +1,4 @@
+/*
 // Árbol de contenidos del Mapa Conceptual.
 // Es una estructura jerárquica: cada nodo puede tener "hijos" (un array de
 // nodos con la misma forma). El dibujo en pantalla se genera solo, en base
@@ -127,3 +128,293 @@ const arbolMapa = {
     }
   ]
 };
+*/
+
+/*************************************/
+
+// ============================================================================
+//  MAPA CONCEPTUAL - datos y distribución
+// ============================================================================
+//
+// Este mapa está en MODO MANUAL: cada nodo dice dónde va (x, y), cuánto mide
+// (ancho, alto) y cómo se conecta con su padre (conector). Las coordenadas
+// están medidas sobre la imagen de referencia; "escalaMapa" las reduce a todas
+// juntas (0.8 = 80%). Si querés el mapa más grande o más chico, cambiá ese número.
+//
+// Campos de cada nodo:
+//   id:          identificador único (obligatorio)
+//   titulo:      texto del cuadrado y del popup (obligatorio)
+//   descripcion: texto del popup. Admite HTML simple:
+//                  <br> = salto de línea      <strong>texto</strong> = negrita
+//   x, y:        posición de la esquina superior izquierda del cuadrado
+//   ancho, alto: tamaño del cuadrado
+//   conector:    cómo se une al padre (ver abajo). Por defecto "recta"
+//   imagen:      URL de una imagen para el popup (opcional)
+//   video:       URL "embed" de YouTube para el popup (opcional)
+//   hijos:       array de nodos hijos (opcional)
+//
+// Tipos de conector (van en el HIJO, describen su unión con el padre):
+//   "recta"     línea recta de borde a borde
+//   "vertical"  línea vertical directa, de la base del padre al techo del hijo
+//   "bus"       barra tipo organigrama: baja, corre en horizontal y vuelve a bajar
+//               ({ tipo: "bus", y: 442 } fija la altura de la barra)
+//   "lateral"   línea horizontal entre dos cuadrados que están a la misma altura
+//   "codo"      sale del costado del padre, corre en horizontal y baja al hijo
+//   "tronco"    baja desde el centro del padre y sale de costado hasta el hijo
+//   "llave"     corchete por el costado ({ tipo: "llave", x: 783 } fija su posición;
+//               con desde: "abajo" nace del tronco del padre a la altura "y")
+//   "ninguno"   sin línea
+//
+// (Si el nodo raíz NO tiene "x", el mapa se acomoda solo: en ese caso se usan
+//  "lado" y "disposicion" en vez de coordenadas.)
+
+const escalaMapa = 0.8;
+
+const PENDIENTE = "Descripción pendiente de completar.";
+
+const arbolMapa = {
+  id: "sociedades",
+  titulo: "Sociedades Parte General",
+  descripcion: "Introducción general al régimen societario: el punto de partida del que se desprenden la constitución y el registro de las sociedades.",
+  x: 631, y: 0, ancho: 235, alto: 58,
+  hijos: [
+    {
+      id: "constitucion-registro",
+      titulo: "Constitución y Registro",
+      descripcion: "Eje que agrupa todo lo referido a cómo nace una sociedad y cómo se la inscribe frente a terceros.",
+      x: 631, y: 90, ancho: 235, alto: 64,
+      conector: "vertical",
+      hijos: [
+
+        // ------------------------- Rama izquierda -------------------------
+        {
+          id: "constitucion-sociedad",
+          titulo: "Constitución de la Sociedad",
+          descripcion: "El proceso y los requisitos necesarios para que una sociedad quede formalmente constituida.",
+          x: 261, y: 139, ancho: 235, alto: 58,
+          conector: "codo",
+          hijos: [
+            {
+              id: "acto-constitutivo",
+              titulo: "Acto Constitutivo",
+              descripcion: "El acto constitutivo es el acto jurídico mediante el cual se crea la sociedad. Por lo tanto, podemos decir que la sociedad existe desde el momento del acto constitutivo (Art. 142 CCCN). Este acto, tiene diferentes caracteres y elementos.",
+              x: 157, y: 252, ancho: 206, alto: 58,
+              conector: "bus",
+              hijos: [
+                {
+                  id: "elementos",
+                  titulo: "Elementos",
+                  descripcion: "",
+                  x: 52, y: 337, ancho: 175, alto: 36,
+                  conector: "bus",
+                  hijos: [
+                    {
+                      id: "generales",
+                      titulo: "Generales",
+                      descripcion: "Elementos comunes a todo contrato (consentimiento, capacidad, objeto y causa).",
+                      x: -15, y: 456, ancho: 134, alto: 47,
+                      conector: "bus"
+                    },
+                    {
+                      id: "esenciales-no-tipificantes",
+                      titulo: "Esenciales no tipificantes",
+                      descripcion: "Elementos que deben estar presentes en toda sociedad pero que no sirven para distinguir un tipo societario de otro.",
+                      x: 157, y: 451, ancho: 174, alto: 63,
+                      conector: "bus"
+                    },
+                    {
+                      id: "especificos",
+                      titulo: "Específicos",
+                      descripcion: "Elementos propios del contrato de sociedad: pluralidad de partes, tipicidad, organización, aportes y participación en resultados.",
+                      x: 59, y: 544, ancho: 160, alto: 58,
+                      conector: "vertical"
+                    }
+                  ]
+                },
+                {
+                  id: "caracteres",
+                  titulo: "Caracteres",
+                  descripcion: "Cuando se trata de una sociedad de dos o mas socios, el contratopresenta los siguientes caracteres:<br>- Plurilateral<br>- Consensual<br>- Conmutativo<br>- Oneroso<br>- De ejecución continuada<br>- De organización",
+                  x: 261, y: 337, ancho: 175, alto: 36,
+                  conector: "bus"
+                },
+                {
+                  id: "naturaleza-juridica",
+                  titulo: "Naturaleza Jurídica",
+                  descripcion: "A lo largo del tiempo se han desarrollado diferentes teorías respecto de la naturaleza jurídica del acto constitutivo. Entre las diferentes teorías podemos mencionar, por ejemplo, la teoría del contrato bilateral, la teoría del acto y la teoría de la institución.",
+                  x: 420, y: 252, ancho: 160, alto: 58,
+                  conector: "lateral",
+                  hijos: [
+                    {
+                      id: "contrato-plurilateral",
+                      titulo: "Contrato Plurilateral de Organización",
+                      descripcion: "Se trata de la teoría adoptada por nuestra Ley General de Sociedades 19.550. Es un contrato plurilateral, ya que las partes pueden ser más de dos* y es de organización, ya que en él quedan reglamentadas las relaciones entre los socios y las normas internas de la sociedad. En esta teoría, los socios tienen intereses particulares, pero se yuxtaponen. El interés yuxtapuesto forma un interés social superior.<br><br>* Ver declaración unilateral de voluntad. ",
+                      x: 304, y: 580, ancho: 175, alto: 92,
+                      conector: "bus"
+                    },
+                    {
+                      id: "declaracion-unilateral",
+                      titulo: "Declaración Unilateral de Voluntad",
+                      descripcion: "Con la reforma de la ley 26.994 se incorporó la figura de las Sociedad Unipersonales. Respecto a este tipo de sociedades, se entiende que la naturaleza jurídica del acto constitutivo es una declaración unilateral de voluntad (Art. 1800 CCCN).",
+                      x: 514, y: 580, ancho: 175, alto: 92,
+                      conector: "bus"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+
+        // ------------------------- Rama derecha -------------------------
+        {
+          id: "registro-sociedades",
+          titulo: "Registro de las Sociedades",
+          descripcion: "La inscripción de la sociedad ante el organismo de registro correspondiente y sus efectos frente a terceros.",
+          x: 973, y: 139, ancho: 235, alto: 58,
+          conector: "codo",
+          hijos: [
+            {
+              id: "seccion-iv",
+              titulo: "Sección IV",
+              descripcion: PENDIENTE,
+              x: 1267, y: 139, ancho: 115, alto: 62,
+              conector: "lateral"
+            },
+
+            // Jurisprudencia (a la izquierda del tronco) con su fallo y sus tres puntos
+            {
+              id: "jurisprudencia-registro",
+              titulo: "Jurisprudencia",
+              descripcion: "Jurisprudencia vinculada al registro de las sociedades.<br><br>" + PENDIENTE,
+              x: 831, y: 216, ancho: 205, alto: 58,
+              conector: "tronco",
+              hijos: [
+                {
+                  id: "caso-gomez",
+                  titulo: '"Gómez, Roberto Carlos c. Transportes Luján SH y otros s. Despido"',
+                  descripcion: "Fallo: <strong>Gómez, Roberto Carlos c. Transportes Luján SH y otros s. Despido</strong>.<br><br>" + PENDIENTE,
+                  x: 803, y: 292, ancho: 247, alto: 125,
+                  conector: "vertical",
+                  hijos: [
+                    {
+                      id: "hechos-gomez",
+                      titulo: "Hechos",
+                      descripcion: "Hechos del caso.<br><br>" + PENDIENTE,
+                      x: 635, y: 240, ancho: 127, alto: 57,
+                      conector: { tipo: "llave", x: 783 }
+                    },
+                    {
+                      id: "art-lgs-gomez",
+                      titulo: "Art. LGS",
+                      descripcion: "Artículos de la Ley General de Sociedades aplicados en el caso.<br><br>" + PENDIENTE,
+                      x: 634, y: 326, ancho: 128, alto: 57,
+                      conector: { tipo: "llave", x: 783 }
+                    },
+                    {
+                      id: "resolucion-gomez",
+                      titulo: "Resolución",
+                      descripcion: "Resolución del caso.<br><br>" + PENDIENTE,
+                      x: 620, y: 422, ancho: 145, alto: 57,
+                      conector: { tipo: "llave", x: 783 }
+                    }
+                  ]
+                }
+              ]
+            },
+
+            // Efectos / Función / Plazo (llave a la derecha, nace del tronco)
+            {
+              id: "efectos",
+              titulo: "Efectos",
+              descripcion: "Las consecuencias que produce la inscripción registral de la sociedad.",
+              x: 1264, y: 241, ancho: 116, alto: 54,
+              conector: { tipo: "llave", desde: "abajo", x: 1238, y: 216 }
+            },
+            {
+              id: "funcion",
+              titulo: "Función",
+              descripcion: "El rol que cumple la publicidad registral: dar a conocer la existencia y los datos de la sociedad.",
+              x: 1264, y: 336, ancho: 116, alto: 54,
+              conector: { tipo: "llave", desde: "abajo", x: 1238, y: 216 }
+            },
+            {
+              id: "plazo",
+              titulo: "Plazo",
+              descripcion: "El tiempo dentro del cual debe presentarse la sociedad para su inscripción.",
+              x: 1264, y: 431, ancho: 116, alto: 54,
+              conector: { tipo: "llave", desde: "abajo", x: 1238, y: 216 },
+              hijos: [
+                {
+                  id: "inscripcion-tardia",
+                  titulo: "Inscripción Tardía",
+                  descripcion: "Consecuencias de inscribir la sociedad fuera del plazo previsto.",
+                  x: 1250, y: 534, ancho: 150, alto: 68,
+                  conector: "vertical"
+                }
+              ]
+            },
+
+            // Control previo de legalidad (con Jurisprudencia y su fallo) y Publicidad especial
+            {
+              id: "control-previo",
+              titulo: "Control Previo de Legalidad",
+              descripcion: "La revisión que realiza el organismo de contralor antes de inscribir la sociedad, verificando el cumplimiento de los requisitos legales.",
+              x: 864, y: 457, ancho: 157, alto: 90,
+              conector: { tipo: "bus", y: 442 },
+              hijos: [
+                {
+                  id: "jurisprudencia-control",
+                  titulo: "Jurisprudencia",
+                  descripcion: "Jurisprudencia vinculada al control previo de legalidad.<br><br>" + PENDIENTE,
+                  x: 840, y: 560, ancho: 205, alto: 58,
+                  conector: "vertical",
+                  hijos: [
+                    {
+                      id: "caso-inspeccion",
+                      titulo: '"Inspección General de Justicia c. Varela Hermanos S.A. s. Organismos de Control"',
+                      descripcion: "Fallo: <strong>Inspección General de Justicia c. Varela Hermanos S.A. s. Organismos de Control</strong>.<br><br>" + PENDIENTE,
+                      x: 723, y: 625, ancho: 600, alto: 62,
+                      conector: "vertical",
+                      hijos: [
+                        {
+                          id: "resolucion-igj",
+                          titulo: "Hechos",
+                          descripcion: "Resolución del caso.<br><br>" + PENDIENTE,
+                          x: 738, y: 701, ancho: 120, alto: 58,
+                          conector: "vertical"
+                        },
+                        {
+                          id: "art-lgs-igj",
+                          titulo: "Art. LGS",
+                          descripcion: "Artículos de la Ley General de Sociedades aplicados en el caso.<br><br>" + PENDIENTE,
+                          x: 960, y: 701, ancho: 127, alto: 58,
+                          conector: "vertical"
+                        },
+                        {
+                          id: "hechos-igj",
+                          titulo: "Resolución",
+                          descripcion: "Resolución del caso.<br><br>" + PENDIENTE,
+                          x: 1166, y: 701, ancho: 135, alto: 58,
+                          conector: "vertical"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "publicidad-especial",
+              titulo: "Publicidad Especial",
+              descripcion: "El régimen de publicidad que exige la inscripción registral, para que la sociedad sea oponible a terceros.",
+              x: 1060, y: 473, ancho: 160, alto: 64,
+              conector: { tipo: "bus", y: 442 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
