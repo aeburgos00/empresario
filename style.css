@@ -253,7 +253,7 @@ body {
   position: relative;
 
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
 }
 .popup.nosotros .popup-imagen {
@@ -261,7 +261,7 @@ body {
 }
 
 .popup.nosotros .cerrar {
-  color: #000;
+  color: var(--color4);
   z-index: 2;
 }
 
