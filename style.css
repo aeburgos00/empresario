@@ -274,10 +274,6 @@ body {
   padding: 0 48px;
 }
 
-.texto-reflexion-container{
-  margin-bottom: 24px;
-}
-
 .texto-reflexion{
   font-size: 1.1rem;
   line-height: 1.6;
@@ -293,6 +289,7 @@ body {
   max-width: 60%;
   height: auto;
   border-radius: 48px;
+  margin: 24px 0;
 }
 
 /* ---------- Noticia Jurídica ---------- */
